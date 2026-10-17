@@ -1,4 +1,5 @@
 from pathlib import Path
+
 import numpy as np
 import pandas as pd
 import plotly.express as px
@@ -54,8 +55,8 @@ h1, h2, h3 {{font-family:'Playfair Display',serif !important; color:{P['text']} 
   padding:14px 18px; box-shadow:0 1px 6px rgba(0,0,0,.07);}}
 [data-testid="stMetricLabel"] p {{color:{P['muted']}; font-weight:500;}}
 [data-testid="stMetricValue"] {{font-family:'Playfair Display',serif; color:{P['text']};}}
-.stTabs [data-baseweb="tab"] {{font-weight:600; color:{P['muted']};}}
-.stTabs [aria-selected="true"] {{color:{P['accent']};}}
+[data-testid="stTab"] p {{font-weight:600; color:{P['muted']} !important;}}
+[data-testid="stTab"][aria-selected="true"] p {{color:{P['accent']} !important;}}
 .stTabs [data-baseweb="tab-highlight"] {{background:{P['accent']};}}
 [data-testid="stPlotlyChart"] {{background:{P['card']}; border-radius:14px; padding:8px; box-shadow:0 1px 6px rgba(0,0,0,.07);}}
 [data-testid="stCaptionContainer"] {{border-left:3px solid {P['accent']}; padding-left:10px; opacity:1;}}
@@ -128,10 +129,11 @@ k[3].metric("Avg agent rating", f"{f['Agent_Rating'].mean():.2f}")
 
 def show(fig, caption):
     fig.update_layout(margin=dict(t=50, b=10, l=10, r=10), plot_bgcolor=P["card"], paper_bgcolor=P["card"],
-                      font=dict(family=FONT, color=P["text"]),
-                      title_font=dict(family="Playfair Display, serif", size=18))
-    fig.update_yaxes(gridcolor=P["grid"], zerolinecolor=P["grid"])
-    fig.update_xaxes(showgrid=False)
+                      font=dict(family=FONT, color=P["text"]), legend_font_color=P["text"], legend_title_font_color=P["text"],
+                      coloraxis_colorbar=dict(tickfont_color=P["text"], title_font_color=P["text"]),
+                      title_font=dict(family="Playfair Display, serif", size=18, color=P["text"]))
+    fig.update_yaxes(gridcolor=P["grid"], zerolinecolor=P["grid"], tickfont_color=P["text"], title_font_color=P["text"])
+    fig.update_xaxes(showgrid=False, tickfont_color=P["text"], title_font_color=P["text"])
     st.plotly_chart(fig)
     st.caption(caption)
 
